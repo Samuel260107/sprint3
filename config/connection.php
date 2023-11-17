@@ -2,8 +2,8 @@
 
   $host = "localhost";
   $dbname = "clinicaveterinaria";
-  $user = "aula1611";
-  $pass = "1234";
+  $user = "root";
+  $pass = "root";
 
   try {
 
