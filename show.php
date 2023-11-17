@@ -3,11 +3,15 @@
 ?>
   <div class="container" id="view-contact-container"> 
     <?php include_once("templates/backbtn.html"); ?>
-    <h1 id="main-title"><?= $contact["name"] ?></h1>
+    <h1 id="main-title"><?= $vet["Nome"] ?></h1>
+    <p class="bold">CRMV:</p>
+    <p class="form-control"><?= $vet["CRMV"] ?></p>
+    <p class="bold">Endereço:</p>
+    <p class="form-control"><?= $vet["Endereco"] ?></p>
     <p class="bold">Telefone:</p>
-    <p class="form-control"><?= $contact["phone"] ?></p>
-    <p class="bold">Observações:</p>
-    <textarea type="text" class="form-control" id="observations" name="observations" rows="3"><?= $contact['observations'] ?></textarea>
+    <p class="form-control"><?= $vet["Telefone"] ?></p>
+    <p class="bold">Celular:</p>
+    <p class="form-control"><?= $vet["Celular"] ?></p>
   </div>
 <?php
   include_once("templates/footer.php");

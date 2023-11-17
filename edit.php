@@ -6,18 +6,22 @@
     <h1 id="main-title">Editar contato</h1>
     <form id="create-form" action="<?= $BASE_URL ?>config/process.php" method="POST">
       <input type="hidden" name="type" value="edit">
-      <input type="hidden" name="id" value="<?= $contact['id'] ?>">
+      <input type="hidden" name="crmv" value="<?= $vet['CRMV'] ?>">
       <div class="form-group">
-        <label for="name">Nome do contato:</label>
-        <input type="text" class="form-control" id="name" name="name" placeholder="Digite o nome" value="<?= $contact['name'] ?>" required>
+        <label for="nome">Nome:</label>
+        <input type="text" class="form-control" id="nome" name="nome" placeholder="Informe o nome" value="<?= $vet['Nome'] ?>" required>
       </div>
       <div class="form-group">
-        <label for="phone">Telefone do contato:</label>
-        <input type="text" class="form-control" id="phone" name="phone" placeholder="Digite o telefone" value="<?= $contact['phone'] ?>" required>
+        <label for="endereco">Endereço:</label>
+        <input type="text" class="form-control" id="endereco" name="endereco" placeholder="Informe o endereco" value="<?= $vet['Endereco'] ?>">
       </div>
       <div class="form-group">
-        <label for="observations">Observações:</label>
-        <textarea type="text" class="form-control" id="observations" name="observations" placeholder="Insira as observações" rows="3"><?= $contact['observations'] ?></textarea>
+        <label for="telefone">Telefone:</label>
+        <input type="text" class="form-control" id="telefone" name="telefone" placeholder="Informe o telefone" value="<?= $vet['Telefone'] ?>">
+      </div>
+      <div class="form-group">
+        <label for="celular">Celular:</label>
+        <input type="text" class="form-control" id="celular" name="celular" placeholder="Informe o celular" value="<?= $vet['Celular'] ?>">
       </div>
       <button type="submit" class="btn btn-primary">Atualizar</button>
     </form>

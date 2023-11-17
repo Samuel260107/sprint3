@@ -13,51 +13,60 @@
     // Criar contato
     if($data["type"] === "create") {
 
-      $name = $data["name"];
-      $phone = $data["phone"];
-      $observations = $data["observations"];
+      $crmv = $data["crmv"];
+      $nome = $data["nome"];
+      $endereco = $data["endereco"];
+      $telefone = $data["telefone"];
+      $celular = $data["celular"];
 
-      $query = "INSERT INTO contacts (name, phone, observations) VALUES (:name, :phone, :observations)";
+      $query = "INSERT INTO Veterinario (CRMV, Nome, Endereco, Telefone, Celular) VALUES (:crmv, :nome, :endereco, :telefone, :celular)";
+
+      // $_SESSION["msg"] = $crmv. ' - ' .$nome;
 
       $stmt = $conn->prepare($query);
 
-      $stmt->bindParam(":name", $name);
-      $stmt->bindParam(":phone", $phone);
-      $stmt->bindParam(":observations", $observations);
+      $stmt->bindParam(":crmv", $crmv);
+      $stmt->bindParam(":nome", $nome);
+      $stmt->bindParam(":endereco", $endereco);
+      $stmt->bindParam(":telefone", $telefone);
+      $stmt->bindParam(":celular", $celular);
 
       try {
 
         $stmt->execute();
-        $_SESSION["msg"] = "Contato criado com sucesso!";
+        $_SESSION["msg"] = "Veterinário cadastrado com sucesso!";
     
       } catch(PDOException $e) {
         // erro na conexão
         $error = $e->getMessage();
         echo "Erro: $error";
+        $_SESSION["msg"] = $error;
       }
 
     } else if($data["type"] === "edit") {
 
-      $name = $data["name"];
-      $phone = $data["phone"];
-      $observations = $data["observations"];
-      $id = $data["id"];
+      $nome = $data["nome"];
+      $endereco = $data["endereco"];
+      $telefone = $data["telefone"];
+      $celular = $data["celular"];
+      $crmv = $data["crmv"];
 
-      $query = "UPDATE contacts 
-                SET name = :name, phone = :phone, observations = :observations 
-                WHERE id = :id";
+      $query = "UPDATE Veterinario 
+                SET Nome = :nome, Endereco = :endereco, Telefone = :telefone, Celular = :celular 
+                WHERE CRMV = :crmv";
 
       $stmt = $conn->prepare($query);
 
-      $stmt->bindParam(":name", $name);
-      $stmt->bindParam(":phone", $phone);
-      $stmt->bindParam(":observations", $observations);
-      $stmt->bindParam(":id", $id);
+      $stmt->bindParam(":nome", $nome);
+      $stmt->bindParam(":endereco", $endereco);
+      $stmt->bindParam(":telefone", $telefone);
+      $stmt->bindParam(":celular", $celular);
+      $stmt->bindParam(":crmv", $crmv);
 
       try {
 
         $stmt->execute();
-        $_SESSION["msg"] = "Contato atualizado com sucesso!";
+        $_SESSION["msg"] = "Veterinário atualizado com sucesso!";
     
       } catch(PDOException $e) {
         // erro na conexão
@@ -67,23 +76,24 @@
 
     } else if($data["type"] === "delete") {
 
-      $id = $data["id"];
+      $crmv = $data["crmv"];
 
-      $query = "DELETE FROM contacts WHERE id = :id";
+      $query = "DELETE FROM Veterinario WHERE CRMV = :crmv";
 
       $stmt = $conn->prepare($query);
 
-      $stmt->bindParam(":id", $id);
+      $stmt->bindParam(":crmv", $crmv);
       
       try {
 
         $stmt->execute();
-        $_SESSION["msg"] = "Contato removido com sucesso!";
+        $_SESSION["msg"] = "Veterinário removido do banco de dados!";
     
       } catch(PDOException $e) {
         // erro na conexão
         $error = $e->getMessage();
-        echo "Erro: $error";
+        //echo "Erro: $error";
+        $_SESSION["msg"] = "Erro: $error";
       }
 
     }
@@ -94,37 +104,37 @@
   // SELEÇÃO DE DADOS
   } else {
     
-    $id;
+    $crmv;
 
     if(!empty($_GET)) {
-      $id = $_GET["id"];
+      $crmv = $_GET["id"];
     }
 
     // Retorna o dado de um contato
-    if(!empty($id)) {
+    if(!empty($crmv)) {
 
-      $query = "SELECT * FROM contacts WHERE id = :id";
+      $query = "SELECT * FROM Veterinario WHERE CRMV = :crmv";
 
       $stmt = $conn->prepare($query);
 
-      $stmt->bindParam(":id", $id);
+      $stmt->bindParam(":crmv", $crmv);
 
       $stmt->execute();
 
-      $contact = $stmt->fetch();
+      $vet = $stmt->fetch();
 
     } else {
 
       // Retorna todos os contatos
-      $contacts = [];
+      $vets = [];
 
-      $query = "SELECT * FROM contacts";
+      $query = "SELECT * FROM Veterinario";
 
       $stmt = $conn->prepare($query);
 
       $stmt->execute();
       
-      $contacts = $stmt->fetchAll();
+      $vets = $stmt->fetchAll();
 
     }
 
